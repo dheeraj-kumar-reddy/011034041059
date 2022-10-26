@@ -33,6 +33,41 @@ public class BranchRegistration {
     @Column(name = "Fee_For_UQ")
     private long feeForUQ;
 
+    @Column(name = "No_of_years")
+    private long noOfYears;
+
+    public long getFeeForCet() {
+        return feeForCet;
+    }
+
+    public void setFeeForCet(long feeForCet) {
+        this.feeForCet = feeForCet;
+    }
+
+    public long getFeeForComedk() {
+        return feeForComedk;
+    }
+
+    public void setFeeForComedk(long feeForComedk) {
+        this.feeForComedk = feeForComedk;
+    }
+
+    public long getFeeForUQ() {
+        return feeForUQ;
+    }
+
+    public void setFeeForUQ(long feeForUQ) {
+        this.feeForUQ = feeForUQ;
+    }
+
+    public long getNoOfYears() {
+        return noOfYears;
+    }
+
+    public void setNoOfYears(long noOfYears) {
+        this.noOfYears = noOfYears;
+    }
+
     public long getBranchId() {
         return branchId;
     }
@@ -90,6 +125,10 @@ public class BranchRegistration {
                 ", hodUsername=" + hodUsername +
                 ", totalSeatsAvailable=" + totalSeatsAvailable +
                 ", seatsBooked=" + seatsBooked +
+                ", feeForCet=" + feeForCet +
+                ", feeForComedk=" + feeForComedk +
+                ", feeForUQ=" + feeForUQ +
+                ", noOfYears=" + noOfYears +
                 '}';
     }
 }

@@ -121,6 +121,28 @@ public class StudentRegistration {
     @Column(name = "Validation_Remarks")
     private String validationRemarks;
 
+    @Column(name = "Date_of_Joining")
+    private long dateOfJoining;
+
+    @Column(name = "Date_of_Completion")
+    private long dateOfCompletion;
+
+    public long getDateOfJoining() {
+        return dateOfJoining;
+    }
+
+    public void setDateOfJoining(long dateOfJoining) {
+        this.dateOfJoining = dateOfJoining;
+    }
+
+    public long getDateOfCompletion() {
+        return dateOfCompletion;
+    }
+
+    public void setDateOfCompletion(long dateOfCompletion) {
+        this.dateOfCompletion = dateOfCompletion;
+    }
+
     public long getUsername() {
         return username;
     }
@@ -466,6 +488,8 @@ public class StudentRegistration {
                 ", amountPaid=" + amountPaid +
                 ", qualifyingExamScore=" + qualifyingExamScore +
                 ", validationRemarks='" + validationRemarks + '\'' +
+                ", dateOfJoining=" + dateOfJoining +
+                ", dateOfCompletion=" + dateOfCompletion +
                 '}';
     }
 }

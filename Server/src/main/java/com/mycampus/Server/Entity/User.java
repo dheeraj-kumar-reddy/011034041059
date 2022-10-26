@@ -38,7 +38,7 @@ public class User {
     private int gender;
 
     @Column(name = "dob")
-    private String dateOfBirth;
+    private long dateOfBirth;
 
     public Long getUsername() {
         return username;
@@ -120,11 +120,11 @@ public class User {
         this.gender = gender;
     }
 
-    public String getDateOfBirth() {
+    public long getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(long dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
