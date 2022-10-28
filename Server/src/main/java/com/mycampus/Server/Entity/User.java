@@ -1,12 +1,12 @@
 package com.mycampus.Server.Entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
+@Table(name = "User")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="username")
     private Long username;
 
@@ -25,10 +25,10 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "mobile_no")
+    @Column(name = "mobile_no", unique = true)
     private long mobileNo;
 
-    @Column(name = "email_id")
+    @Column(name = "email_id", unique = true)
     private String emailId;
 
     @Column(name = "admission_status")
@@ -38,7 +38,7 @@ public class User {
     private int gender;
 
     @Column(name = "dob")
-    private long dateOfBirth;
+    private Date dateOfBirth;
 
     public Long getUsername() {
         return username;
@@ -120,11 +120,11 @@ public class User {
         this.gender = gender;
     }
 
-    public long getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(long dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

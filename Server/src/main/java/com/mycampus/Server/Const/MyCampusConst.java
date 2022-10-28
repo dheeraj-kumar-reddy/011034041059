@@ -35,9 +35,9 @@ public class MyCampusConst {
     public static final int ACCOUNT_LOGGED_IN = 2;
 
     //Status
-    public static final int SUCCESS = 1;
+    public static final int SUCCESS = 0;
 
-    public static final int FAILURE = 2;
+    public static final int FAILURE = 1;
 
     //Error codes
     public static final int EXISTING_ENTRY = 1;
@@ -46,6 +46,14 @@ public class MyCampusConst {
 
     public static final int UNKNOWN_ERROR = -1;
 
+    public static final int INVALID_ENTRY = 3;
+
+    public static final int NO_ERROR = 0;
+
     public static final int INVALID_ROLE = -1;
+
+    public static final long INVALID_USERNAME = -1;
+
+    public static final String SPACE = " ";
 
 }

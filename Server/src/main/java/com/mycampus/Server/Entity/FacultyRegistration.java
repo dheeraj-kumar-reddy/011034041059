@@ -3,8 +3,10 @@ package com.mycampus.Server.Entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Faculty")
 public class FacultyRegistration {
     @Id
     @Column(name = "EmpId")
