@@ -3,6 +3,7 @@ package com.mycampus.Server.Entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Department")
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

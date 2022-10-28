@@ -1,7 +1,6 @@
 package com.mycampus.Server.Controller;
 
-import com.mycampus.Server.Entity.LoginForm;
-import com.mycampus.Server.Entity.LoginResponse;
+import com.mycampus.Server.Entity.*;
 import com.mycampus.Server.Service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,10 +17,24 @@ public class ServerController {
 
     private static Logger MCLogger = LogManager.getLogger(ServerController.class);
 
+    @PostMapping("/adduser")
+    public UserCreationResponse createUser(@RequestBody User user){
+        String methodName = "createUser";
+        MCLogger.info(methodName+" Details from client: "+user);
+        return userService.createUser(user);
+    }
+
     @PostMapping("/login")
     public LoginResponse userLogin(@RequestBody LoginForm loginForm){
         String methodName = "userLogin";
         MCLogger.info(methodName+" Credentials received from client: "+loginForm);
         return userService.userLogin(loginForm);
+    }
+
+    @PostMapping("/logout")
+    public Response userLogout(@RequestBody LogoutForm logoutForm){
+        String methodName = "userLogout";
+        MCLogger.info(methodName+" Credentials received from client: "+logoutForm);
+        return userService.userLogout(logoutForm);
     }
 }

@@ -3,14 +3,16 @@ package com.mycampus.Server.Entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Student")
 public class StudentRegistration {
     @Id
     @Column(name = "srn")
     private String srn;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private long username;
 
     @Column(name = "Faculty_Verification")

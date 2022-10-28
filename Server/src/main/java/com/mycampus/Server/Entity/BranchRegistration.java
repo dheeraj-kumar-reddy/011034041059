@@ -3,6 +3,7 @@ package com.mycampus.Server.Entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Branch")
 public class BranchRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

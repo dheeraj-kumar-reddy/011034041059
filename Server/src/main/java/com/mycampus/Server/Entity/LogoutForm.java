@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LogoutForm {
-    public String username;
+    public long username;
 
-    public String getUsername() {
+    public long getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(long username) {
         this.username = username;
     }
 
