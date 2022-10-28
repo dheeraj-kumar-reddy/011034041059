@@ -46,4 +46,6 @@ public class MyCampusConst {
 
     public static final int UNKNOWN_ERROR = -1;
 
+    public static final int INVALID_ROLE = -1;
+
 }
