@@ -56,4 +56,7 @@ public class MyCampusConst {
 
     public static final String SPACE = " ";
 
+    public static final String HIDDEN_PASSWORD = "XXXXXXXX";
+
+
 }

@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:4400")
 @RestController
 @RequestMapping("/mycampus")
@@ -36,5 +38,26 @@ public class ServerController {
         String methodName = "userLogout";
         MCLogger.info(methodName+" Credentials received from client: "+logoutForm);
         return userService.userLogout(logoutForm);
+    }
+
+    @GetMapping("/getallusers")
+    public List<User> getAllUsers(){
+        String methodName = "getAllUsers";
+        MCLogger.info(methodName+" Getting all users data from server");
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/getuserdetails/{username}")
+    public User getUserDetails(@PathVariable(value = "username") long username){
+        String methodName = "getUserDetails";
+        MCLogger.info(methodName+" Getting user details from server, username "+username);
+        return userService.getUserDetails(username);
+    }
+
+    @PostMapping("/updateuserdetails")
+    public Response updateUserDetails(@RequestBody UpdateUser updateUser){
+        String methodName = "updateUserDetails";
+        MCLogger.info(methodName+" Update user details from client "+updateUser);
+        return userService.updateUserDetails(updateUser);
     }
 }

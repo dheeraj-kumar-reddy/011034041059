@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -22,26 +24,26 @@ public class UserService {
     //User Creation
     public UserCreationResponse createUser(User user){
         String methodName = "createUser";
-        UserCreationResponse response = new UserCreationResponse();
+        UserCreationResponse userCreationResponse = new UserCreationResponse();
         try{
             if((userRepo.findByMobileNo(user.getMobileNo())!=null) || (userRepo.findByEmailId(user.getEmailId())!=null)){
                 MCLogger.error(methodName+" User Already Registered");
-                MyCampusUtil.userCreationFailed(response,MyCampusConst.EXISTING_ENTRY);
+                MyCampusUtil.userCreationFailed(userCreationResponse,MyCampusConst.EXISTING_ENTRY);
             }
             else{
                 MyCampusUtil.updateStatusAndUserName(user);
                 userRepo.save(user);
                 long username = user.getUsername();
-                MyCampusUtil.userCreationSuccess(response,user.getUsername());
+                MyCampusUtil.userCreationSuccess(userCreationResponse,user.getUsername());
                 MCLogger.info(methodName+" Creation of user successful with username: "+user.getUsername());
             }
         }
         catch (Exception e){
             MCLogger.error(methodName+" Failed to create a new user",e);
-            MyCampusUtil.userCreationFailed(response,MyCampusConst.UNKNOWN_ERROR);
+            MyCampusUtil.userCreationFailed(userCreationResponse,MyCampusConst.UNKNOWN_ERROR);
         }
-        MCLogger.info(methodName+" User Creation Response from Server "+response);
-        return response;
+        MCLogger.info(methodName+" User Creation Response from Server "+userCreationResponse);
+        return userCreationResponse;
     }
 
     //User Login
@@ -79,23 +81,87 @@ public class UserService {
     public Response userLogout(LogoutForm logoutForm){
         String methodName = "userLogout";
         long username = logoutForm.getUsername();
-        Response response = new Response();
+        Response userLogoutResponse = new Response();
         try{
             User user = userRepo.findById(username).get();
             user.setAccountStatus(MyCampusConst.ACCOUNT_ACTIVE);
             userRepo.save(user);
             MCLogger.info(methodName+MyCampusConst.SPACE+username+" Logged out successfully");
-            MyCampusUtil.successResponse(response);
+            MyCampusUtil.successResponse(userLogoutResponse);
         }
         catch (NoSuchElementException e){
             MCLogger.error(methodName+MyCampusConst.SPACE+username+" not found, failed to login");
-            MyCampusUtil.failureResponse(response,MyCampusConst.INVALID_ENTRY);
+            MyCampusUtil.failureResponse(userLogoutResponse,MyCampusConst.INVALID_ENTRY);
         }
         catch (Exception e){
             MCLogger.error(methodName+MyCampusConst.SPACE+"Exception occurred during logout",e);
-            MyCampusUtil.failureResponse(response,MyCampusConst.UNKNOWN_ERROR);
+            MyCampusUtil.failureResponse(userLogoutResponse,MyCampusConst.UNKNOWN_ERROR);
         }
-        MCLogger.info(methodName+" LogOut response from server "+response);
-        return response;
+        MCLogger.info(methodName+" LogOut response from server "+userLogoutResponse);
+        return userLogoutResponse;
+    }
+
+    //Find all users
+    public List<User> getAllUsers(){
+        String methodName = "getAllUsers";
+        List<User> userList = new ArrayList<>();
+        try{
+            List<User> allUserList = userRepo.findAll();
+            for(User user : allUserList){
+                user.setPassword(MyCampusConst.HIDDEN_PASSWORD);
+                userList.add(user);
+            }
+            MCLogger.info(methodName+" All users data retrieved successfully from the server");
+        }
+        catch (Exception e){
+            MCLogger.error(methodName+" Error while getting all users data",e);
+        }
+        return userList;
+    }
+
+    public User getUserDetails(long username){
+        String methodName = "getUserDetails";
+        User user = new User();
+        try{
+            user = userRepo.findById(username).get();
+            user.setPassword(MyCampusConst.HIDDEN_PASSWORD);
+            MCLogger.info(methodName+" Successfully retrieved user details with username "+username);
+        }
+        catch (NoSuchElementException e){
+            MCLogger.error(methodName+" No user found with username "+username);
+        }
+        catch (Exception e){
+            MCLogger.error(methodName+" Exception occurred while retrieving user details with username "+username,e);
+        }
+        return user;
+    }
+
+        public Response updateUserDetails(UpdateUser updateUser){
+        String methodName = "updateUserDetails";
+        Response updateUserResponse = new Response();
+        long username = updateUser.getUsername();
+        try{
+            User user = userRepo.findById(username).get();
+            if(!updateUser.getCurrentPassword().equals(user.getPassword())){
+                MyCampusUtil.failureResponse(updateUserResponse,MyCampusConst.INVALID_CREDENTIALS);
+                MCLogger.error(methodName+" Invalid user current password, username "+username);
+            }
+            else{
+                MyCampusUtil.updateUserDetails(user, updateUser);
+                userRepo.save(user);
+                MyCampusUtil.successResponse(updateUserResponse);
+                MCLogger.info(methodName+" User details updated successfully, username "+username);
+            }
+        }
+        catch (NoSuchElementException e){
+            MyCampusUtil.failureResponse(updateUserResponse,MyCampusConst.INVALID_ENTRY);
+            MCLogger.error(methodName+" user not found, username "+username);
+        }
+        catch (Exception e){
+            MyCampusUtil.failureResponse(updateUserResponse,MyCampusConst.INVALID_ENTRY);
+            MCLogger.error(methodName+" Error while updating user details, username "+username,e);
+        }
+        MCLogger.info(methodName+" User update response from server "+updateUserResponse);
+        return updateUserResponse;
     }
 }
