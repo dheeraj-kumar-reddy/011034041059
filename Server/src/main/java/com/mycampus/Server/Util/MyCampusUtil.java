@@ -1,10 +1,7 @@
 package com.mycampus.Server.Util;
 
 import com.mycampus.Server.Const.MyCampusConst;
-import com.mycampus.Server.Entity.LoginResponse;
-import com.mycampus.Server.Entity.Response;
-import com.mycampus.Server.Entity.User;
-import com.mycampus.Server.Entity.UserCreationResponse;
+import com.mycampus.Server.Entity.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,12 +50,46 @@ public class MyCampusUtil {
 
     public static User updateStatusAndUserName(User user){
         user.setAccountStatus(MyCampusConst.ACCOUNT_ACTIVE);
+        user.setAdmissionStatus(getUserAdmissionStatus(user.getRole()));
+        user.setUsername(System.currentTimeMillis());
+        return user;
+    }
+
+    public static int getUserAdmissionStatus(int role){
         int admissionStatus = MyCampusConst.ADMISSION_NOT_YET_CONFIRMED;
-        if(user.getRole() != MyCampusConst.STUDENT_USER){
+        if(role != MyCampusConst.STUDENT_USER){
             admissionStatus = MyCampusConst.FACULTY_ADMISSION;
         }
-        user.setAdmissionStatus(admissionStatus);
-        user.setUsername(System.currentTimeMillis());
+        return admissionStatus;
+    }
+
+    public static User updateUserDetails(User user, UpdateUser updateUser){
+        if (updateUser.getNewPassword() != null) {
+            user.setPassword(updateUser.getNewPassword());
+        }
+        if (updateUser.mailId != null){
+            user.setEmailId(updateUser.getMailId());
+        }
+        if(updateUser.getMobileNo() != 0){
+            user.setMobileNo(updateUser.getMobileNo());
+        }
+        if(updateUser.getName() != null){
+            user.setName(updateUser.getName());
+        }
+        if(updateUser.getRole() != 0) {
+            user.setRole(updateUser.getRole());
+            int admissionStatus = MyCampusUtil.getUserAdmissionStatus(updateUser.getRole());
+            if(user.getAdmissionStatus() == MyCampusConst.ADMISSION_CONFIRMED){
+                admissionStatus = MyCampusConst.ADMISSION_CONFIRMED;
+            }
+            user.setAdmissionStatus(admissionStatus);
+        }
+        if(updateUser.getDateOfBirth() != null) {
+            user.setDateOfBirth(updateUser.getDateOfBirth());
+        }
+        if(updateUser.getGender() != 0) {
+            user.setGender(updateUser.getGender());
+        }
         return user;
     }
 }
