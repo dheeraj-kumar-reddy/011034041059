@@ -9,4 +9,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
     User findByMobileNo(long mobileNo);
 
     User findByEmailId(String mailId);
+
+    boolean existsByUsernameAndAdmissionStatus(long username, int admissionStatus);
 }

@@ -136,7 +136,7 @@ public class UserService {
         return user;
     }
 
-        public Response updateUserDetails(UpdateUser updateUser){
+    public Response updateUserDetails(UpdateUser updateUser){
         String methodName = "updateUserDetails";
         Response updateUserResponse = new Response();
         long username = updateUser.getUsername();

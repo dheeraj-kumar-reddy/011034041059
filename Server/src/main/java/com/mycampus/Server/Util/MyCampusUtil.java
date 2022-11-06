@@ -92,4 +92,18 @@ public class MyCampusUtil {
         }
         return user;
     }
+
+    public static OnJoiningResponse studentJoinFailed(OnJoiningResponse response, int errorCode){
+        response.setErrorCode(errorCode);
+        response.setStatus(MyCampusConst.FAILURE);
+        response.setId(MyCampusConst.INVALID_ID);
+        return response;
+    }
+
+    public static OnJoiningResponse studentJoinSuccess(OnJoiningResponse response, String id){
+        response.setId(id);
+        response.setStatus(MyCampusConst.SUCCESS);
+        response.setErrorCode(MyCampusConst.NO_ERROR);
+        return response;
+    }
 }

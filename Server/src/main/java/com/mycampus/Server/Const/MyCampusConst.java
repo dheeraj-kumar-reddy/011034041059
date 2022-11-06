@@ -58,5 +58,7 @@ public class MyCampusConst {
 
     public static final String HIDDEN_PASSWORD = "XXXXXXXX";
 
+    public static final String INVALID_ID = "null";
+
 
 }
