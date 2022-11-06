@@ -1,6 +1,7 @@
 package com.mycampus.Server.Controller;
 
 import com.mycampus.Server.Entity.*;
+import com.mycampus.Server.Service.StudentService;
 import com.mycampus.Server.Service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +17,9 @@ public class ServerController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private StudentService studentService;
 
     private static Logger MCLogger = LogManager.getLogger(ServerController.class);
 
@@ -59,5 +63,12 @@ public class ServerController {
         String methodName = "updateUserDetails";
         MCLogger.info(methodName+" Update user details from client "+updateUser);
         return userService.updateUserDetails(updateUser);
+    }
+
+    @PostMapping("/onstudentjoin")
+    public OnJoiningResponse onStudentJoining(StudentRegistration student){
+        String methodName = "onStudentJoining";
+        MCLogger.info(methodName+" Student details from client: "+ student);
+        return studentService.onStudentJoining(student);
     }
 }
