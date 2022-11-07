@@ -1,44 +1,85 @@
 package com.mycampus.Server.Entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 
-@Entity
-@Table(name = "Branch")
-public class BranchRegistration {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Branch_Id")
+public class BranchToUI {
     private long branchId;
 
-    @Column(name = "Dept_Id")
     private long deptId;
 
-    @Column(name = "Branch_Name")
     private String branchName;
 
-    @Column(name = "Branch_Code")
     private String branchCode;
 
-    @Column(name = "Hod_Username")
-    private long hodUsername;
+    private String  hodName;
 
-    @Column(name = "Total_Seats_available")
     private int totalSeatsAvailable;
 
-    @Column(name = "Seats_Booked")
     private int seatsBooked;
 
-    @Column(name = "Fee_For_CET")
     private long feeForCet;
 
-    @Column(name = "Fee_For_Comedk")
     private long feeForComedk;
 
-    @Column(name = "Fee_For_UQ")
     private long feeForUQ;
 
-    @Column(name = "No_of_years")
     private int noOfYears;
+
+    public long getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(long branchId) {
+        this.branchId = branchId;
+    }
+
+    public long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(long deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public String getBranchCode() {
+        return branchCode;
+    }
+
+    public void setBranchCode(String branchCode) {
+        this.branchCode = branchCode;
+    }
+
+    public String getHodName() {
+        return hodName;
+    }
+
+    public void setHodName(String hodName) {
+        this.hodName = hodName;
+    }
+
+    public int getTotalSeatsAvailable() {
+        return totalSeatsAvailable;
+    }
+
+    public void setTotalSeatsAvailable(int totalSeatsAvailable) {
+        this.totalSeatsAvailable = totalSeatsAvailable;
+    }
+
+    public int getSeatsBooked() {
+        return seatsBooked;
+    }
+
+    public void setSeatsBooked(int seatsBooked) {
+        this.seatsBooked = seatsBooked;
+    }
 
     public long getFeeForCet() {
         return feeForCet;
@@ -72,70 +113,14 @@ public class BranchRegistration {
         this.noOfYears = noOfYears;
     }
 
-    public long getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(long branchId) {
-        this.branchId = branchId;
-    }
-
-    public long getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(long deptId) {
-        this.deptId = deptId;
-    }
-
-    public String getBranchName() {
-        return branchName;
-    }
-
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
-    }
-
-    public long getHodUsername() {
-        return hodUsername;
-    }
-
-    public void setHodUsername(long hodUsername) {
-        this.hodUsername = hodUsername;
-    }
-
-    public int getTotalSeatsAvailable() {
-        return totalSeatsAvailable;
-    }
-
-    public void setTotalSeatsAvailable(int totalSeatsAvailable) {
-        this.totalSeatsAvailable = totalSeatsAvailable;
-    }
-
-    public int getSeatsBooked() {
-        return seatsBooked;
-    }
-
-    public void setSeatsBooked(int seatsBooked) {
-        this.seatsBooked = seatsBooked;
-    }
-
-    public String getBranchCode() {
-        return branchCode;
-    }
-
-    public void setBranchCode(String branchCode) {
-        this.branchCode = branchCode;
-    }
-
     @Override
     public String toString() {
-        return "BranchRegistration{" +
+        return "BranchToUI{" +
                 "branchId=" + branchId +
                 ", deptId=" + deptId +
                 ", branchName='" + branchName + '\'' +
                 ", branchCode='" + branchCode + '\'' +
-                ", hodUsername=" + hodUsername +
+                ", hodName='" + hodName + '\'' +
                 ", totalSeatsAvailable=" + totalSeatsAvailable +
                 ", seatsBooked=" + seatsBooked +
                 ", feeForCet=" + feeForCet +

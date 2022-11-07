@@ -1,6 +1,7 @@
 package com.mycampus.Server.Controller;
 
 import com.mycampus.Server.Entity.*;
+import com.mycampus.Server.Service.BranchService;
 import com.mycampus.Server.Service.DepartmentService;
 import com.mycampus.Server.Service.StudentService;
 import com.mycampus.Server.Service.UserService;
@@ -24,6 +25,9 @@ public class ServerController {
 
     @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
+    private BranchService branchService;
 
     private static Logger MCLogger = LogManager.getLogger(ServerController.class);
 
@@ -88,5 +92,12 @@ public class ServerController {
         String methodName = "getAllDepartments";
         MCLogger.info(methodName+" Get all departments request from client");
         return departmentService.getAllDepartments();
+    }
+
+    @PostMapping("/addbranch")
+    public Response addBranch(@RequestBody BranchRegistration branchRegistration){
+        String methodName = "addBranch";
+        MCLogger.info(methodName+" Branch details from client: "+branchRegistration);
+        return branchService.addBranch(branchRegistration);
     }
 }
