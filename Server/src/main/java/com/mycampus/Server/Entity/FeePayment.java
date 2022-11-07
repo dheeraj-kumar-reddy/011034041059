@@ -16,6 +16,9 @@ public class FeePayment {
     @Column(name = "Amount_Paid")
     private Long amountPaid;
 
+    @Column(name = "Payment_Date")
+    private long paymentDate;
+
     public Long getInvoiceNo() {
         return invoiceNo;
     }
@@ -40,12 +43,21 @@ public class FeePayment {
         this.invoiceNo = invoiceNo;
     }
 
+    public long getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(long paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
     @Override
     public String toString() {
         return "FeePayment{" +
                 "invoiceNo=" + invoiceNo +
                 ", username=" + username +
                 ", amountPaid=" + amountPaid +
+                ", paymentDate=" + paymentDate +
                 '}';
     }
 }

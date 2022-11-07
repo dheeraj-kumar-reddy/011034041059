@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/mycampus")
 public class ServerController {
+    private static Logger MCLogger = LogManager.getLogger(ServerController.class);
 
     @Autowired
     private UserService userService;
@@ -28,8 +29,6 @@ public class ServerController {
 
     @Autowired
     private BranchService branchService;
-
-    private static Logger MCLogger = LogManager.getLogger(ServerController.class);
 
     @PostMapping("/adduser")
     public UserCreationResponse createUser(@RequestBody User user){
@@ -99,5 +98,12 @@ public class ServerController {
         String methodName = "addBranch";
         MCLogger.info(methodName+" Branch details from client: "+branchRegistration);
         return branchService.addBranch(branchRegistration);
+    }
+
+    @GetMapping("/getallbranches")
+    public List<BranchToUI> getAllBranches(){
+        String methodName = "getAllBranches";
+        MCLogger.info(methodName+" Get all branches request from client");
+        return branchService.getAllBranches();
     }
 }
