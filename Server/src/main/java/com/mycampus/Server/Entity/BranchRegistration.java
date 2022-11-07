@@ -16,6 +16,9 @@ public class BranchRegistration {
     @Column(name = "Branch_Name")
     private String branchName;
 
+    @Column(name = "Branch_Code")
+    private String branchCode;
+
     @Column(name = "Hod_Username")
     private long hodUsername;
 
@@ -117,12 +120,21 @@ public class BranchRegistration {
         this.seatsBooked = seatsBooked;
     }
 
+    public String getBranchCode() {
+        return branchCode;
+    }
+
+    public void setBranchCode(String branchCode) {
+        this.branchCode = branchCode;
+    }
+
     @Override
     public String toString() {
         return "BranchRegistration{" +
                 "branchId=" + branchId +
                 ", deptId=" + deptId +
                 ", branchName='" + branchName + '\'' +
+                ", branchCode='" + branchCode + '\'' +
                 ", hodUsername=" + hodUsername +
                 ", totalSeatsAvailable=" + totalSeatsAvailable +
                 ", seatsBooked=" + seatsBooked +

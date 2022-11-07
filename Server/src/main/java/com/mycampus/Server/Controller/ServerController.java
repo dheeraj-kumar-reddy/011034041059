@@ -1,6 +1,7 @@
 package com.mycampus.Server.Controller;
 
 import com.mycampus.Server.Entity.*;
+import com.mycampus.Server.Service.DepartmentService;
 import com.mycampus.Server.Service.StudentService;
 import com.mycampus.Server.Service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +21,9 @@ public class ServerController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private DepartmentService departmentService;
 
     private static Logger MCLogger = LogManager.getLogger(ServerController.class);
 
@@ -66,9 +70,23 @@ public class ServerController {
     }
 
     @PostMapping("/onstudentjoin")
-    public OnJoiningResponse onStudentJoining(StudentRegistration student){
+    public OnJoiningResponse onStudentJoining(@RequestBody StudentRegistration student){
         String methodName = "onStudentJoining";
         MCLogger.info(methodName+" Student details from client: "+ student);
         return studentService.onStudentJoining(student);
+    }
+
+    @PostMapping("/adddepartment")
+    public Response addDepartment(@RequestBody Department department){
+        String methodName = "addDepartment";
+        MCLogger.info(methodName+" Department details from client: "+department);
+        return departmentService.addDepartment(department);
+    }
+
+    @GetMapping("/getalldepartments")
+    public List<DepartmentListToUI> getAllDepartments(){
+        String methodName = "getAllDepartments";
+        MCLogger.info(methodName+" Get all departments request from client");
+        return departmentService.getAllDepartments();
     }
 }

@@ -13,6 +13,9 @@ public class Department {
     @Column(name = "Dept_Name")
     private String deptName;
 
+    @Column(name = "Dept_Code")
+    private String deptCode;
+
     @Column(name = "Director_Username")
     private long directorUsername;
 
@@ -51,11 +54,20 @@ public class Department {
         this.assDirectorUsername = assDirectorUsername;
     }
 
+    public String getDeptCode() {
+        return deptCode;
+    }
+
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode;
+    }
+
     @Override
     public String toString() {
         return "Department{" +
                 "deptId=" + deptId +
                 ", deptName='" + deptName + '\'' +
+                ", deptCode='" + deptCode + '\'' +
                 ", directorUsername=" + directorUsername +
                 ", assDirectorUsername=" + assDirectorUsername +
                 '}';
