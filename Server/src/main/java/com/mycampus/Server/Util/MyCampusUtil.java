@@ -106,4 +106,14 @@ public class MyCampusUtil {
         response.setErrorCode(MyCampusConst.NO_ERROR);
         return response;
     }
+
+    public static User setUserVerificationStatus(User user){
+        if ((user.getRole() == MyCampusConst.STUDENT_USER)) {
+            user.setVerificationStatus(MyCampusConst.USER_VERIFICATION_SUCCESS);
+        }
+        else {
+            user.setVerificationStatus(MyCampusConst.USER_VERIFICATION_FAILURE);
+        }
+        return user;
+    }
 }

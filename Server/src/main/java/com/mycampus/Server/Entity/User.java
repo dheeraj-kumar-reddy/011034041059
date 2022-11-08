@@ -40,6 +40,9 @@ public class User {
     @Column(name = "dob")
     private Date dateOfBirth;
 
+    @Column(name = "verification")
+    private int verificationStatus;
+
     public Long getUsername() {
         return username;
     }
@@ -128,6 +131,14 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public int getVerificationStatus() {
+        return verificationStatus;
+    }
+
+    public void setVerificationStatus(int verificationStatus) {
+        this.verificationStatus = verificationStatus;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -142,6 +153,7 @@ public class User {
                 ", admissionStatus=" + admissionStatus +
                 ", gender=" + gender +
                 ", dateOfBirth=" + dateOfBirth +
+                ", verificationStatus=" + verificationStatus +
                 '}';
     }
 }
