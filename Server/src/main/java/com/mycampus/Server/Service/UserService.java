@@ -32,6 +32,7 @@ public class UserService {
             }
             else{
                 MyCampusUtil.updateStatusAndUserName(user);
+                MyCampusUtil.setUserVerificationStatus(user);
                 userRepo.save(user);
                 long username = user.getUsername();
                 MyCampusUtil.userCreationSuccess(userCreationResponse,user.getUsername());
@@ -54,7 +55,11 @@ public class UserService {
         String password = loginForm.getPassword();
         try {
             User user = userRepo.findById(username).get();
-            if(!user.getPassword().equals(password)){
+            if(user.getVerificationStatus() == MyCampusConst.USER_VERIFICATION_FAILURE){
+                MCLogger.error(methodName+MyCampusConst.SPACE+"User not verified, username: "+username);
+                MyCampusUtil.failedLogin(loginResponse,MyCampusConst.UNVERIFIED_USER);
+            }
+            else if(!user.getPassword().equals(password)){
                 MCLogger.error(methodName+MyCampusConst.SPACE+"Invalid password for username "+username);
                 MyCampusUtil.failedLogin(loginResponse,MyCampusConst.INVALID_CREDENTIALS);
             }

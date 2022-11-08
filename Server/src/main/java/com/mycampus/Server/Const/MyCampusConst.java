@@ -39,6 +39,11 @@ public class MyCampusConst {
 
     public static final int FAILURE = 1;
 
+    //Verification
+    public static final int USER_VERIFICATION_SUCCESS = 0;
+
+    public static final int USER_VERIFICATION_FAILURE = 1;
+
     //Error codes
     public static final int EXISTING_ENTRY = 1;
 
@@ -49,6 +54,8 @@ public class MyCampusConst {
     public static final int INVALID_ENTRY = 3;
 
     public static final int NO_ERROR = 0;
+
+    public static final int UNVERIFIED_USER = 4;
 
     public static final int INVALID_ROLE = -1;
 
