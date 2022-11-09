@@ -67,5 +67,34 @@ public class MyCampusConst {
 
     public static final String INVALID_ID = "null";
 
+    public static final String REPLACE_USERNAME = "#username#";
 
+    public static final String X_MARKS_SHEET_FORMAT = "#username#_tenth_marks_sheet.pdf";
+
+    public static final String XII_MARKS_SHEET_FORMAT = "#username#_puc_marks_sheet.pdf";
+
+    public static final String UG_MARKS_SHEET_FORMAT = "#username#_ug_marks_sheet.pdf";
+
+    public static final String TC_FORMAT = "#username#_tc.pdf";
+
+    public static final String PROPERTIES_FILE_PATH = "D:\\FinalProjectLogs\\MyCampus.properties";
+
+    //Properties Related
+    public static final String TENTH_MARKS_SHEET_DIRECTORY = "TENTH_MARKS_SHEET_DIRECTORY";
+
+    public static final String PUC_MARKS_SHEET_DIRECTORY = "PUC_MARKS_SHEET_DIRECTORY";
+
+    public static final String UG_MARKS_SHEET_DIRECTORY = "UG_MARKS_SHEET_DIRECTORY";
+
+    public static final String TC_DIRECTORY = "TC_DIRECTORY";
+
+    public static final String OTHER_DOCUMENTS_DIRECTORY = "OTHER_DOCUMENTS_DIRECTORY";
+
+    public static final String TENTH = "tenth";
+
+    public static final String PUC = "puc";
+
+    public static final String UG = "ug";
+
+    public static final String TC = "tc";
 }

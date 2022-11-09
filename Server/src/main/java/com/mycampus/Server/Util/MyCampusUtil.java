@@ -116,4 +116,12 @@ public class MyCampusUtil {
         }
         return user;
     }
+
+    public static String get10thClassMarksSheetName(long username){
+        return MyCampusConst.X_MARKS_SHEET_FORMAT.replaceAll(MyCampusConst.REPLACE_USERNAME,Long.toString(username));
+    }
+
+    public static String getTcName(long username){
+        return MyCampusConst.TC_FORMAT.replaceAll(MyCampusConst.REPLACE_USERNAME,Long.toString(username));
+    }
 }

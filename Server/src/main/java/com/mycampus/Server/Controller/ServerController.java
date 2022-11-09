@@ -1,13 +1,16 @@
 package com.mycampus.Server.Controller;
 
+import com.mycampus.Server.Const.MyCampusConst;
 import com.mycampus.Server.Entity.*;
 import com.mycampus.Server.Service.BranchService;
 import com.mycampus.Server.Service.DepartmentService;
 import com.mycampus.Server.Service.StudentService;
 import com.mycampus.Server.Service.UserService;
+import com.mycampus.Server.Util.MyCampusUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -105,5 +108,21 @@ public class ServerController {
         String methodName = "getAllBranches";
         MCLogger.info(methodName+" Get all branches request from client");
         return branchService.getAllBranches();
+    }
+
+    @GetMapping("/getxms/{username}")
+    public ResponseEntity download10thMarksSheet(@PathVariable(value = "username")long username){
+        String methodName = "download10thMarksSheet";
+        String filename = MyCampusUtil.get10thClassMarksSheetName(username);
+        MCLogger.info(methodName+" Download 10th Marks Sheet: "+filename);
+        return studentService.downloadFile(filename, MyCampusConst.TENTH);
+    }
+
+    @GetMapping("/gettc/{username}")
+    public ResponseEntity downloadTc(@PathVariable(value = "username")long username){
+        String methodName = "downloadTc";
+        String filename = MyCampusUtil.getTcName(username);
+        MCLogger.info(methodName+" Download TC: "+filename);
+        return studentService.downloadFile(filename,MyCampusConst.TC);
     }
 }

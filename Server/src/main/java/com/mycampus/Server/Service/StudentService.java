@@ -4,14 +4,22 @@ import com.mycampus.Server.Const.MyCampusConst;
 import com.mycampus.Server.Entity.OnJoiningResponse;
 import com.mycampus.Server.Entity.StudentRegistration;
 import com.mycampus.Server.Entity.User;
+import com.mycampus.Server.MyCampusConfigProperties;
 import com.mycampus.Server.Repository.Student;
 import com.mycampus.Server.Repository.UserRepo;
 import com.mycampus.Server.Util.MyCampusUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 
 @Service
@@ -24,6 +32,7 @@ public class StudentService {
 
     @Autowired
     private UserRepo userRepo;
+
 
     public OnJoiningResponse onStudentJoining(StudentRegistration student){
         String methodName = "onStudentJoining";
@@ -50,4 +59,38 @@ public class StudentService {
         MCLogger.info(methodName+" Student Admission Response from Server: "+response);
         return response;
     }
+
+    public ResponseEntity downloadFile(String filename, String typeOfDocument){
+        String methodName = "download10thMarksSheet";
+        String filePath = null;
+        if(typeOfDocument.equals(MyCampusConst.TENTH)) {
+            filePath = MyCampusConfigProperties.getTenthMarksSheetDirectory() + filename;
+        } else if (typeOfDocument.equals(MyCampusConst.PUC)) {
+            filePath = MyCampusConfigProperties.getPucMarksSheetDirectory() + filename;
+        } else if (typeOfDocument.equals(MyCampusConst.UG)) {
+            filePath = MyCampusConfigProperties.getUgMarksSheetDirectory() + filename;
+        } else if (typeOfDocument.equals(MyCampusConst.TC)){
+            filePath = MyCampusConfigProperties.getTcDirectory() + filename;
+        } else {
+            filePath = MyCampusConfigProperties.getOtherDocumentsDirectory() + filename;
+        }
+        MCLogger.info(methodName+" File Path: "+filePath);
+        File file = new File(filePath);
+        InputStreamResource resource = null;
+        HttpHeaders headers = new HttpHeaders();
+        try {
+            headers.add("Content-Disposition",String.format("attachment; filename=\"%s\"",filename));
+            resource = new InputStreamResource(new FileInputStream(file));
+        }
+        catch (FileNotFoundException e){
+            MCLogger.error(methodName+" File not found "+filename,e);
+        }
+        catch (Exception e){
+            MCLogger.error(methodName+" Exception occurred while downloading the file, "+filename);
+        }
+        return ResponseEntity.ok().headers(headers)
+                .contentType(MediaType.parseMediaType(MediaType.APPLICATION_PDF_VALUE))
+                .body(resource);
+    }
+
 }
