@@ -71,13 +71,17 @@ public class MyCampusConst {
 
     public static final String X_MARKS_SHEET_FORMAT = "#username#_tenth_marks_sheet.pdf";
 
-    public static final String XII_MARKS_SHEET_FORMAT = "#username#_puc_marks_sheet.pdf";
+    public static final String PUC_MARKS_SHEET_FORMAT = "#username#_puc_marks_sheet.pdf";
 
     public static final String UG_MARKS_SHEET_FORMAT = "#username#_ug_marks_sheet.pdf";
 
     public static final String TC_FORMAT = "#username#_tc.pdf";
 
-    public static final String PROPERTIES_FILE_PATH = "D:\\FinalProjectLogs\\MyCampus.properties";
+    public static final String OTHER_DOC_FORMAT = "#username#_other_doc.pdf";
+
+    public static final String ROOT_DIR = System.getenv("MY_CAMPUS_DIR");
+
+    public static final String PROPERTIES_FILE_PATH = ROOT_DIR+"\\011034041059\\bin\\MyCampus.properties";
 
     //Properties Related
     public static final String TENTH_MARKS_SHEET_DIRECTORY = "TENTH_MARKS_SHEET_DIRECTORY";
@@ -97,4 +101,6 @@ public class MyCampusConst {
     public static final String UG = "ug";
 
     public static final String TC = "tc";
+
+    public static final String OTHER_DOCUMENT = "od";
 }

@@ -124,4 +124,17 @@ public class MyCampusUtil {
     public static String getTcName(long username){
         return MyCampusConst.TC_FORMAT.replaceAll(MyCampusConst.REPLACE_USERNAME,Long.toString(username));
     }
+
+    public static String getPucMarksSheetName(long username){
+        return MyCampusConst.PUC_MARKS_SHEET_FORMAT.replaceAll(MyCampusConst.REPLACE_USERNAME,Long.toString(username));
+    }
+
+    public static String getUgMarksSheetName(long username){
+        return MyCampusConst.UG_MARKS_SHEET_FORMAT.replaceAll(MyCampusConst.REPLACE_USERNAME,Long.toString(username));
+    }
+
+    public static String getOtherDocName(long username){
+        return MyCampusConst.OTHER_DOC_FORMAT.replaceAll(MyCampusConst.REPLACE_USERNAME,Long.toString(username));
+    }
+
 }
