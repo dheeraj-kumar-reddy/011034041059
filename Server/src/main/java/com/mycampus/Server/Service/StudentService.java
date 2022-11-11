@@ -61,7 +61,7 @@ public class StudentService {
     }
 
     public ResponseEntity downloadFile(String filename, String typeOfDocument){
-        String methodName = "download10thMarksSheet";
+        String methodName = "downloadFile";
         String filePath = null;
         if(typeOfDocument.equals(MyCampusConst.TENTH)) {
             filePath = MyCampusConfigProperties.getTenthMarksSheetDirectory() + filename;

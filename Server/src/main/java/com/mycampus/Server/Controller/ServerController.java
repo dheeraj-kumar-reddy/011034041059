@@ -125,4 +125,28 @@ public class ServerController {
         MCLogger.info(methodName+" Download TC: "+filename);
         return studentService.downloadFile(filename,MyCampusConst.TC);
     }
+
+    @GetMapping("/getpucms/{username}")
+    public ResponseEntity downloadPucMarksSheet(@PathVariable(value = "username")long username){
+        String methodName = "downloadPucMarksSheet";
+        String filename = MyCampusUtil.getPucMarksSheetName(username);
+        MCLogger.info(methodName+" Download PUC marks sheet: "+filename);
+        return studentService.downloadFile(filename,MyCampusConst.PUC);
+    }
+
+    @GetMapping("/getugms/{username}")
+    public ResponseEntity downloadUgMarksSheet(@PathVariable(value = "username")long username){
+        String methodName = "downloadUgMarksSheet";
+        String filename = MyCampusUtil.getUgMarksSheetName(username);
+        MCLogger.info(methodName+" Download UG: "+filename);
+        return studentService.downloadFile(filename,MyCampusConst.UG);
+    }
+
+    @GetMapping("/getdoc/{username}")
+    public ResponseEntity downloadOtherDoc(@PathVariable(value = "username")long username){
+        String methodName = "downloadOtherDoc";
+        String filename = MyCampusUtil.getOtherDocName(username);
+        MCLogger.info(methodName+" Download Other Doc: "+filename);
+        return studentService.downloadFile(filename,MyCampusConst.OTHER_DOCUMENT);
+    }
 }
