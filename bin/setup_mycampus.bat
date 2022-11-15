@@ -1,3 +1,4 @@
+cmd /c D:
 cmd /c mkdir D:\FinalProjectLogs
 cmd /c mkdir D:\FinalProjectWorkspace
 cd D:\FinalProjectWorkspace
