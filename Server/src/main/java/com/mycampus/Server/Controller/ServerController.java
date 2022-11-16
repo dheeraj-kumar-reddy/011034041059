@@ -12,11 +12,12 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4400")
 @RestController
+@CrossOrigin(origins = "http://localhost:4400", allowedHeaders = "*")
 @RequestMapping("/mycampus")
 public class ServerController {
     private static Logger MCLogger = LogManager.getLogger(ServerController.class);
@@ -138,7 +139,7 @@ public class ServerController {
     public ResponseEntity downloadUgMarksSheet(@PathVariable(value = "username")long username){
         String methodName = "downloadUgMarksSheet";
         String filename = MyCampusUtil.getUgMarksSheetName(username);
-        MCLogger.info(methodName+" Download UG: "+filename);
+        MCLogger.info(methodName+" Download UG Marks Sheet: "+filename);
         return studentService.downloadFile(filename,MyCampusConst.UG);
     }
 
@@ -148,5 +149,45 @@ public class ServerController {
         String filename = MyCampusUtil.getOtherDocName(username);
         MCLogger.info(methodName+" Download Other Doc: "+filename);
         return studentService.downloadFile(filename,MyCampusConst.OTHER_DOCUMENT);
+    }
+
+    @PostMapping("/addxms/{username}")
+    public Response upload10thMarksSheet(@RequestParam(value = "file")MultipartFile file, @PathVariable(value = "username")long username){
+        String methodName = "upload10thMarksSheet";
+        String filename = MyCampusUtil.get10thClassMarksSheetName(username);
+        MCLogger.info(methodName+" Upload 10th Marks Sheet: "+filename);
+        return studentService.uploadFile(file,filename,MyCampusConst.TENTH);
+    }
+
+    @PostMapping("/addpucms/{username}")
+    public Response uploadPucMarksSheet(@RequestParam(value = "file")MultipartFile file, @PathVariable(value = "username")long username){
+        String methodName = "uploadPucMarksSheet";
+        String filename = MyCampusUtil.getPucMarksSheetName(username);
+        MCLogger.info(methodName+" Upload PUC Marks Sheet: "+filename);
+        return studentService.uploadFile(file,filename,MyCampusConst.PUC);
+    }
+
+    @PostMapping("/addugms/{username}")
+    public Response uploadUgMarksSheet(@RequestParam(value = "file")MultipartFile file, @PathVariable(value = "username")long username){
+        String methodName = "uploadUgMarksSheet";
+        String filename = MyCampusUtil.getUgMarksSheetName(username);
+        MCLogger.info(methodName+" Upload UG Marks Sheet: "+filename);
+        return studentService.uploadFile(file,filename,MyCampusConst.UG);
+    }
+
+    @PostMapping("/addtc/{username}")
+    public Response uploadTc(@RequestParam(value = "file")MultipartFile file, @PathVariable(value = "username")long username){
+        String methodName = "uploadTc";
+        String filename = MyCampusUtil.getTcName(username);
+        MCLogger.info(methodName+" Upload Tc: "+filename);
+        return studentService.uploadFile(file,filename,MyCampusConst.TC);
+    }
+
+    @PostMapping("/adddoc/{username}")
+    public Response uploadOtherDoc(@RequestParam(value = "file")MultipartFile file, @PathVariable(value = "username")long username){
+        String methodName = "uploadOtherDoc";
+        String filename = MyCampusUtil.getOtherDocName(username);
+        MCLogger.info(methodName+" Upload Other Doc: "+filename);
+        return studentService.uploadFile(file,filename,MyCampusConst.OTHER_DOCUMENT);
     }
 }

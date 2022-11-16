@@ -2,6 +2,7 @@ package com.mycampus.Server.Service;
 
 import com.mycampus.Server.Const.MyCampusConst;
 import com.mycampus.Server.Entity.OnJoiningResponse;
+import com.mycampus.Server.Entity.Response;
 import com.mycampus.Server.Entity.StudentRegistration;
 import com.mycampus.Server.Entity.User;
 import com.mycampus.Server.MyCampusConfigProperties;
@@ -16,10 +17,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import javax.xml.crypto.dsig.keyinfo.KeyName;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.NoSuchElementException;
 
 @Service
@@ -32,7 +36,6 @@ public class StudentService {
 
     @Autowired
     private UserRepo userRepo;
-
 
     public OnJoiningResponse onStudentJoining(StudentRegistration student){
         String methodName = "onStudentJoining";
@@ -62,18 +65,7 @@ public class StudentService {
 
     public ResponseEntity downloadFile(String filename, String typeOfDocument){
         String methodName = "downloadFile";
-        String filePath = null;
-        if(typeOfDocument.equals(MyCampusConst.TENTH)) {
-            filePath = MyCampusConfigProperties.getTenthMarksSheetDirectory() + filename;
-        } else if (typeOfDocument.equals(MyCampusConst.PUC)) {
-            filePath = MyCampusConfigProperties.getPucMarksSheetDirectory() + filename;
-        } else if (typeOfDocument.equals(MyCampusConst.UG)) {
-            filePath = MyCampusConfigProperties.getUgMarksSheetDirectory() + filename;
-        } else if (typeOfDocument.equals(MyCampusConst.TC)){
-            filePath = MyCampusConfigProperties.getTcDirectory() + filename;
-        } else {
-            filePath = MyCampusConfigProperties.getOtherDocumentsDirectory() + filename;
-        }
+        String filePath = MyCampusUtil.getFilePath(typeOfDocument,filename);
         MCLogger.info(methodName+" File Path: "+filePath);
         File file = new File(filePath);
         InputStreamResource resource = null;
@@ -93,4 +85,36 @@ public class StudentService {
                 .body(resource);
     }
 
+    public Response uploadFile(MultipartFile file, String filename, String typeOfDocument){
+        String methodName = "uploadFile";
+        Path fileStorageLocation = MyCampusUtil.getFileStorageLocation(typeOfDocument);
+        Response response = new Response();
+        if(file.getSize() > MyCampusConst.MAX_FILE_SIZE){
+            MCLogger.error(methodName+" File size limit exceeded");
+            MyCampusUtil.failureResponse(response,MyCampusConst.INVALID_ENTRY);
+            return response;
+        }
+        String actualFileName = file.getOriginalFilename();
+        String actualFileNameExtension = actualFileName.substring(actualFileName.lastIndexOf(MyCampusConst.FILE_EXTENSION_SEPARATOR));
+        if(!actualFileNameExtension.equals(MyCampusConst.PDF_FILE_EXTENSION)){
+            MCLogger.error(methodName+" Invalid file format uploaded, only pdf allowed, uploaded "+actualFileNameExtension);
+            MyCampusUtil.failureResponse(response,MyCampusConst.INVALID_CREDENTIALS);
+            return response;
+        }
+        MCLogger.info(methodName+" File Path: "+fileStorageLocation.toString()+"\\"+filename);
+        try{
+            InputStream fileInputStream = file.getInputStream();
+            Path filePathLocation = fileStorageLocation.resolve(filename);
+            Files.copy(fileInputStream, filePathLocation, StandardCopyOption.REPLACE_EXISTING);
+            MyCampusUtil.successResponse(response);
+            MCLogger.info(methodName+" File uploaded successfully");
+        } catch (IOException e) {
+            MCLogger.error(methodName+" Error while uploading the file",e);
+            MyCampusUtil.failureResponse(response,MyCampusConst.UNKNOWN_ERROR);
+        } catch (Exception e) {
+            MCLogger.error(methodName+" Error while uploading the file",e);
+            MyCampusUtil.failureResponse(response,MyCampusConst.UNKNOWN_ERROR);
+        }
+        return response;
+    }
 }
