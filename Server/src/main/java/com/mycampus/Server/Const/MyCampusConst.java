@@ -103,4 +103,10 @@ public class MyCampusConst {
     public static final String TC = "tc";
 
     public static final String OTHER_DOCUMENT = "od";
+
+    public static final long MAX_FILE_SIZE = 5242880;
+
+    public static final String FILE_EXTENSION_SEPARATOR = ".";
+
+    public static final String PDF_FILE_EXTENSION = ".pdf";
 }

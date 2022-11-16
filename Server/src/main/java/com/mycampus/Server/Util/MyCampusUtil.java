@@ -2,8 +2,14 @@ package com.mycampus.Server.Util;
 
 import com.mycampus.Server.Const.MyCampusConst;
 import com.mycampus.Server.Entity.*;
+import com.mycampus.Server.MyCampusConfigProperties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static com.mycampus.Server.MyCampusConfigProperties.getPucMarksSheetDirectory;
 
 public class MyCampusUtil {
     private static Logger MCLogger = LogManager.getLogger(MyCampusUtil.class);
@@ -137,4 +143,35 @@ public class MyCampusUtil {
         return MyCampusConst.OTHER_DOC_FORMAT.replaceAll(MyCampusConst.REPLACE_USERNAME,Long.toString(username));
     }
 
+    public static String getFilePath(String typeOfDocument, String filename){
+        String filePath = null;
+        if(typeOfDocument.equals(MyCampusConst.TENTH)) {
+            filePath = MyCampusConfigProperties.getTenthMarksSheetDirectory() + filename;
+        } else if (typeOfDocument.equals(MyCampusConst.PUC)) {
+            filePath = getPucMarksSheetDirectory() + filename;
+        } else if (typeOfDocument.equals(MyCampusConst.UG)) {
+            filePath = MyCampusConfigProperties.getUgMarksSheetDirectory() + filename;
+        } else if (typeOfDocument.equals(MyCampusConst.TC)){
+            filePath = MyCampusConfigProperties.getTcDirectory() + filename;
+        } else {
+            filePath = MyCampusConfigProperties.getOtherDocumentsDirectory() + filename;
+        }
+        return filePath;
+    }
+
+    public static Path getFileStorageLocation(String typeOfDocument){
+        Path fileStorageLocation = null;
+        if (typeOfDocument.equals(MyCampusConst.TENTH)){
+            fileStorageLocation = Paths.get(MyCampusConfigProperties.getTenthMarksSheetDirectory()).toAbsolutePath().normalize();
+        } else if (typeOfDocument.equals(MyCampusConst.PUC)) {
+            fileStorageLocation = Paths.get(MyCampusConfigProperties.getPucMarksSheetDirectory()).toAbsolutePath().normalize();
+        } else if (typeOfDocument.equals(MyCampusConst.UG)) {
+            fileStorageLocation = Paths.get(MyCampusConfigProperties.getUgMarksSheetDirectory()).toAbsolutePath().normalize();
+        } else if (typeOfDocument.equals(MyCampusConst.TC)) {
+            fileStorageLocation = Paths.get(MyCampusConfigProperties.getTcDirectory()).toAbsolutePath().normalize();
+        } else {
+            fileStorageLocation = Paths.get(MyCampusConfigProperties.getOtherDocumentsDirectory()).toAbsolutePath().normalize();
+        }
+        return fileStorageLocation;
+    }
 }
