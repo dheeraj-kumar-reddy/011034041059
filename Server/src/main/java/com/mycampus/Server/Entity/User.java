@@ -43,6 +43,17 @@ public class User {
     @Column(name = "verification")
     private int verificationStatus;
 
+    @Column(name = "nationality")
+    private String nationality;
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
     public Long getUsername() {
         return username;
     }
@@ -154,6 +165,7 @@ public class User {
                 ", gender=" + gender +
                 ", dateOfBirth=" + dateOfBirth +
                 ", verificationStatus=" + verificationStatus +
+                ", nationality='" + nationality + '\'' +
                 '}';
     }
 }

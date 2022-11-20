@@ -109,4 +109,6 @@ public class MyCampusConst {
     public static final String FILE_EXTENSION_SEPARATOR = ".";
 
     public static final String PDF_FILE_EXTENSION = ".pdf";
+
+    public static final long INVALID_LAST_LOGIN_TIME = -1;
 }

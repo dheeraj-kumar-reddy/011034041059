@@ -64,10 +64,11 @@ public class UserService {
                 MyCampusUtil.failedLogin(loginResponse,MyCampusConst.INVALID_CREDENTIALS);
             }
             else{
+                long lastLoginTime = user.getLastLoginTime();
                 user.setLastLoginTime(System.currentTimeMillis());
                 user.setAccountStatus(MyCampusConst.ACCOUNT_LOGGED_IN);
                 userRepo.save(user);
-                MyCampusUtil.successLogin(loginResponse, user.getRole());
+                MyCampusUtil.successLogin(loginResponse, user.getRole(),lastLoginTime);
             }
         }
         catch (NoSuchElementException e){
