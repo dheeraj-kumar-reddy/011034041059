@@ -5,7 +5,6 @@ import com.mycampus.Server.Entity.OnJoiningResponse;
 import com.mycampus.Server.Entity.Response;
 import com.mycampus.Server.Entity.StudentRegistration;
 import com.mycampus.Server.Entity.User;
-import com.mycampus.Server.MyCampusConfigProperties;
 import com.mycampus.Server.Repository.Student;
 import com.mycampus.Server.Repository.UserRepo;
 import com.mycampus.Server.Util.MyCampusUtil;
@@ -19,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.xml.crypto.dsig.keyinfo.KeyName;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
