@@ -19,6 +19,17 @@ public class FeePayment {
     @Column(name = "Payment_Date")
     private long paymentDate;
 
+    @Column(name = "Payment_status")
+    private int paymentStatus;
+
+    public int getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(int paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
     public Long getInvoiceNo() {
         return invoiceNo;
     }
@@ -58,6 +69,7 @@ public class FeePayment {
                 ", username=" + username +
                 ", amountPaid=" + amountPaid +
                 ", paymentDate=" + paymentDate +
+                ", paymentStatus=" + paymentStatus +
                 '}';
     }
 }

@@ -176,4 +176,18 @@ public class MyCampusUtil {
         }
         return fileStorageLocation;
     }
+
+    public static FeePaymentResponse failurePaymentResponse(FeePaymentResponse feePaymentResponse, FeePayment feePayment){
+        feePaymentResponse.setStatus(MyCampusConst.FAILURE);
+        feePaymentResponse.setErrorCode(MyCampusConst.UNKNOWN_ERROR);
+        feePaymentResponse.setInvoiceNo(feePayment.getInvoiceNo());
+        return feePaymentResponse;
+    }
+
+    public static FeePaymentResponse successPaymentResponse(FeePaymentResponse feePaymentResponse, FeePayment feePayment){
+        feePaymentResponse.setStatus(MyCampusConst.SUCCESS);
+        feePaymentResponse.setErrorCode(MyCampusConst.NO_ERROR);
+        feePaymentResponse.setInvoiceNo(feePayment.getInvoiceNo());
+        return feePaymentResponse;
+    }
 }

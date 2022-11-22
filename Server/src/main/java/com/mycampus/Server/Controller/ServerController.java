@@ -2,10 +2,7 @@ package com.mycampus.Server.Controller;
 
 import com.mycampus.Server.Const.MyCampusConst;
 import com.mycampus.Server.Entity.*;
-import com.mycampus.Server.Service.BranchService;
-import com.mycampus.Server.Service.DepartmentService;
-import com.mycampus.Server.Service.StudentService;
-import com.mycampus.Server.Service.UserService;
+import com.mycampus.Server.Service.*;
 import com.mycampus.Server.Util.MyCampusUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +30,9 @@ public class ServerController {
 
     @Autowired
     private BranchService branchService;
+
+    @Autowired
+    private FeeService feeService;
 
     @PostMapping("/adduser")
     public UserCreationResponse createUser(@RequestBody User user){
@@ -189,5 +189,12 @@ public class ServerController {
         String filename = MyCampusUtil.getOtherDocName(username);
         MCLogger.info(methodName+" Upload Other Doc: "+filename);
         return studentService.uploadFile(file,filename,MyCampusConst.OTHER_DOCUMENT);
+    }
+
+    @PostMapping("/generatefeereceipt")
+    public FeePaymentResponse generateFeeReceipt(@RequestBody FeePayment feePayment){
+        String methodName = "generateFeeReceipt";
+        MCLogger.info(methodName+" Generate Fee Receipt");
+        return feeService.generateFeeReceipt(feePayment);
     }
 }
