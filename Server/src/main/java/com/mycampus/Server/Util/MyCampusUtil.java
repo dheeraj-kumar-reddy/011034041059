@@ -18,13 +18,15 @@ public class MyCampusUtil {
         loginResponse.setRole(MyCampusConst.INVALID_ROLE);
         loginResponse.setStatus(MyCampusConst.FAILURE);
         loginResponse.setErrorCode(errorCode);
+        loginResponse.setLastLoginTime(MyCampusConst.INVALID_LAST_LOGIN_TIME);
         return loginResponse;
     }
 
-    public static LoginResponse successLogin(LoginResponse loginResponse, int role){
+    public static LoginResponse successLogin(LoginResponse loginResponse, int role, long lastLoginTime){
         loginResponse.setErrorCode(MyCampusConst.NO_ERROR);
         loginResponse.setStatus(MyCampusConst.SUCCESS);
         loginResponse.setRole(role);
+        loginResponse.setLastLoginTime(lastLoginTime);
         return loginResponse;
     }
 

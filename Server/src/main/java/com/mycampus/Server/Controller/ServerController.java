@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4400", allowedHeaders = "*")
+@CrossOrigin(origins = "https://localhost:4400", allowedHeaders = "*")
 @RequestMapping("/mycampus")
 public class ServerController {
     private static Logger MCLogger = LogManager.getLogger(ServerController.class);

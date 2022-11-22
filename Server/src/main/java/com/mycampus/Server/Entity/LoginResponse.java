@@ -10,6 +10,16 @@ public class LoginResponse {
 
     public int role;
 
+    public long lastLoginTime;
+
+    public long getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(long lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -40,6 +50,7 @@ public class LoginResponse {
                 "status=" + status +
                 ", errorCode=" + errorCode +
                 ", role=" + role +
+                ", lastLoginTime=" + lastLoginTime +
                 '}';
     }
 }

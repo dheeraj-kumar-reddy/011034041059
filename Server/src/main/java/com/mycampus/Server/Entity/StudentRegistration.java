@@ -102,9 +102,6 @@ public class StudentRegistration {
     @Column(name = "Ug_College")
     private String ugCollege;
 
-    @Column(name = "Nationality")
-    private String nationality;
-
     @Column(name = "Address")
     private String address;
 
@@ -385,14 +382,6 @@ public class StudentRegistration {
         this.ugCollege = ugCollege;
     }
 
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -483,7 +472,6 @@ public class StudentRegistration {
                 ", ugRegistrationNo='" + ugRegistrationNo + '\'' +
                 ", ugMarks=" + ugMarks +
                 ", ugCollege='" + ugCollege + '\'' +
-                ", nationality='" + nationality + '\'' +
                 ", address='" + address + '\'' +
                 ", verifiedBy=" + verifiedBy +
                 ", amoutToBePaid=" + amoutToBePaid +
