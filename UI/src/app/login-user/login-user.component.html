@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <h3 style="text-align:center;">Login</h3><br>
+        <form [formGroup]="loginUser" (ngSubmit)="searchUser()">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Username" formControlName="username">
+          </div>
+          <br>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" formControlName="password">
+          </div>
+          <br>
+          <div class="col-md-12 text-center">
+          <button type="submit" class="btn btn-primary">Submit</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
